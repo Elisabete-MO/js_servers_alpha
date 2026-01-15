@@ -49,11 +49,14 @@ product-api/
 └── src/
     ├── app.js
     │
+    ├── middlewares/
+    │   └── validate.js
+    |
     ├── routes/
     │   ├── index.js
-    │   ├── product_routes.js
-    │   ├── order_routes.js
-    │   └── customer_routes.js
+    │   ├── productRoutes.js
+    │   ├── orderRoutes.js
+    │   └── customerRoutes.js
     │
     ├── controllers/
     │   ├── index.js
@@ -63,15 +66,14 @@ product-api/
     │
     ├── services/
     │   ├── index.js
-    │   ├── product_service.js
-    │   ├── order_service.js
-    │   └── customer_service.js
+    │   ├── productService.js
+    │   ├── orderService.js
+    │   └── customerService.js
     │
     ├── validators/
-    │   ├── index.js
-    │   ├── product_validator.js
-    │   ├── order_validator.js
-    │   └── customer_validator.js
+    │   ├── productSchema.js
+    │   ├── orderSchema.js
+    │   └── customerSchema.js
     │
     └── public/
         ├── index.html
@@ -143,7 +145,7 @@ app.use(express.static("public"));
 
 Inicie o servidor:
 ``` bash
-node app.js
+npm start
 ```
 
 Abra no navegador:
@@ -188,27 +190,31 @@ http://localhost:3000
 
 ## 🛡️ Validações de entrada
 
-A API inclui validações para garantir consistência dos dados antes de chegar às regras de negócio. Entre elas:
+A API utiliza Joi para validação estruturada dos dados antes que eles cheguem às regras de negócio. Isso garante consistência, legibilidade e padronização das validações em todo o projeto.
+
+Com Joi, são validados, por exemplo:
 
 - Verificação de tipos (`string`, `number`, `array`, etc.)
-- Validação de formato de e-mail com expressão regular
 - Verificação de campos obrigatórios
-- Validação de quantidade positiva em pedidos
+- Validação de formato de e-mail
+- Números inteiros e valores positivos
+- Estrutura de objetos aninhados (como itens dentro de pedidos)
 
-Exemplo de validação de e-mail utilizada no projeto:
-
+Em vez de múltiplos ´ifs´ manuais, as validações são definidas como **schemas**, por exemplo:
 ```js
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+import Joi from "joi";
 
-if (typeof email !== "string") {
-  return res.status(400).json({ message: "email deve ser uma string" });
-}
-
-if (!emailRegex.test(email)) {
-  return res.status(400).json({ message: "email inválido" });
-}
+export const customerSchema = Joi.object({
+  id: Joi.number().integer().required(),
+  name: Joi.string().required(),
+  email: Joi.string().email().required()
+});
 ```
-Essas validações ficam concentradas na camada Validator, mantendo rotas mais limpas e organizadas.
+Essas validações ficam concentradas na camada Validator, mantendo:
+
+- rotas mais limpas e organizadas
+- controllers mais focados em fluxo de aplicação, e
+- regras de validação centralizadas e reutilizáveis.
 
 ---
 ## 🔁 Rotas da API — Customers
@@ -348,6 +354,7 @@ Este projeto consolida:
 * Respostas em **JSON**
 * Arquitetura modular (Routes, Service, Validator)
 * Uso de **Express + ESM**
+* Uso de **JOI** para validação de dados de entrada
 * Integração **Frontend + Backend no mesmo servidor**
 * Consumo de API com **Fetch**
 * Modelagem de dados mais complexos (Orders com array de items)
@@ -357,10 +364,8 @@ Este projeto consolida:
 
 * ✅ Validar se os **produtos do pedido realmente existem**
 * ✅ Calcular **valor total do pedido**
-* Relacionar pedidos a clientes
 * Persistir dados em **arquivo JSON**
 * Integrar com banco de dados (SQLite, PostgreSQL ou MongoDB)
 * *Evoluir para um padrão mais próximo de MVC (separando melhor Controller e Service em responsabilidades claras)*
 * Padronizar **respostas de erro** em um **middleware** global  
-* Centralizar validações com **Zod** ou **Joi**
 * Criar testes automatizados

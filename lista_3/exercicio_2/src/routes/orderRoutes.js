@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { orderController } from "../controllers/index.js";
-import { validateOrderBody } from "../validators/orderValidator.js";
+import { validateBody } from "../middlewares/validate.js";
+import { orderSchema } from "../validators/orderSchema.js";
 
 const router = Router();
 
@@ -11,10 +12,10 @@ router.get("/", orderController.listOrders);
 router.get("/:id", orderController.getOrderById);
 
 // POST /api/order
-router.post("/", validateOrderBody, orderController.createOrder);
+router.post("/", validateBody(orderSchema), orderController.createOrder);
 
 // PUT /api/order/:id
-router.put("/:id", validateOrderBody, orderController.editOrder);
+router.put("/:id", validateBody(orderSchema), orderController.editOrder);
 
 // DELETE /api/order/:id
 router.delete("/:id", orderController.removeOrder);

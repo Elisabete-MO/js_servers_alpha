@@ -303,6 +303,7 @@ curl -X POST http://localhost:3000/api/order \
 -d '{
   "id": 100,
   "items": [
+    
     { "id": 1, "quantity": 2 },
     { "id": 2, "quantity": 1 }
   ]

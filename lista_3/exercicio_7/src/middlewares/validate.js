@@ -29,7 +29,7 @@ export function validateQuery(schema) {
       return next(err);
     }
 
-    req.query = value;
+    req.validatedQuery = value;
     next();
   };
 }

@@ -6,12 +6,13 @@ import { errorHandler } from "./middlewares/errorHandler.js";
 import loggerMiddleware from "./middlewares/loggerMiddleware.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Recebe JSON
 app.use(express.json());
 
-app.use(loggerMiddleware);
+if (process.env.NODE_ENV !== "test") {
+  app.use(loggerMiddleware);
+}
 
 // Segurança com Helmet
 app.use(
@@ -51,6 +52,4 @@ app.use("/api", routes);
 // Middleware de erros deve vir por último
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
-});
+export default app;

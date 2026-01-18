@@ -11,6 +11,8 @@
  *   get:
  *     summary: Retorna todos os pedidos
  *     tags: [Orders]
+ *     security:
+ *       - cookieAuth: []
  *     responses:
  *       200:
  *         description: Lista de pedidos
@@ -20,9 +22,12 @@
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Order'
+ *
  *   post:
  *     summary: Cria um novo pedido
  *     tags: [Orders]
+ *     security:
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -50,6 +55,8 @@
  *   get:
  *     summary: Retorna um pedido pelo ID
  *     tags: [Orders]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -70,9 +77,12 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
+ *
  *   put:
  *     summary: Atualiza um pedido pelo ID
  *     tags: [Orders]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -98,9 +108,12 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
+ *
  *   delete:
  *     summary: Remove um pedido pelo ID
  *     tags: [Orders]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id

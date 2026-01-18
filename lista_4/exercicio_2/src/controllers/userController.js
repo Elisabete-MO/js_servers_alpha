@@ -17,6 +17,18 @@ export function getUserByUsername(req, res) {
   return res.json(user);
 };
 
+export function createUser(req, res) {
+  const { username, password, role } = req.body;
+
+  if (users.find(u => u.username === username)) {
+    return res.status(400).json({ message: "Nome de usuário já existe" });
+  }
+
+  const newUser = { username, password, role };
+  users.push(newUser);
+  return res.status(201).json({ message: "Usuário criado", user: newUser });
+};
+
 export function updateUser(req, res) {
   const { username } = req.params;
   const { password, role } = req.body;

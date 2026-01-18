@@ -11,6 +11,8 @@
  *   get:
  *     summary: Retorna todos os produtos
  *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
  *     responses:
  *       200:
  *         description: Lista de produtos
@@ -30,6 +32,8 @@
  *   post:
  *     summary: Cria um novo produto
  *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -37,9 +41,12 @@
  *           schema:
  *             type: object
  *             required:
+ *               - id
  *               - name
  *               - value
  *             properties:
+ *               id:
+ *                 type: integer
  *               name:
  *                 type: string
  *               value:
@@ -66,6 +73,8 @@
  *   get:
  *     summary: Retorna um produto pelo ID
  *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -84,9 +93,12 @@
  *         description: ID inválido
  *       404:
  *         description: Produto não encontrado
+ *
  *   put:
  *     summary: Atualiza um produto existente
  *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -110,9 +122,12 @@
  *         description: Produto atualizado
  *       404:
  *         description: Produto não encontrado
+ *
  *   delete:
  *     summary: Remove um produto pelo ID
  *     tags: [Products]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -125,19 +140,4 @@
  *         description: Produto removido
  *       404:
  *         description: Produto não encontrado
- */
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     Product:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *         name:
- *           type: string
- *         value:
- *           type: number
  */

@@ -39,7 +39,7 @@ product-api/
 
 ```
 ---
-## 📖 Documentação da API
+##   Documentação da API
 
 A API possui documentação interativa gerada com **Swagger**.
 

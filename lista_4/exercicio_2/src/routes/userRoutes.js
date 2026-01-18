@@ -16,6 +16,9 @@ router.get("/all", authMiddleware, isAdmin, userController.getAllUsers);
 // GET /api/login/:username
 router.get("/:username", authMiddleware, isAdmin, userController.getUserByUsername);
 
+// POST /api/user
+router.post("/", authMiddleware, isAdmin, userController.createUser);
+
 // PUT /api/login/:username
 router.put("/:username", authMiddleware, isAdmin, userController.updateUser);
 

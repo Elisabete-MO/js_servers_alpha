@@ -20,7 +20,6 @@ export const autenticate = async (req, res) => {
     name: foundUser.name,
     userRole: foundUser.role,
   };
-  console.log(userPayload);
 
   try {
     const token = jwt.sign(

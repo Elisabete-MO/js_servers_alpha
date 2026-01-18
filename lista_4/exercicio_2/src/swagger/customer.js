@@ -11,6 +11,8 @@
  *   get:
  *     summary: Retorna todos os clientes
  *     tags: [Customers]
+ *     security:
+ *       - cookieAuth: []
  *     responses:
  *       200:
  *         description: Lista de clientes
@@ -23,6 +25,8 @@
  *   post:
  *     summary: Cadastra um novo cliente
  *     tags: [Customers]
+ *     security:
+ *       - cookieAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -50,6 +54,8 @@
  *   get:
  *     summary: Retorna um cliente pelo ID
  *     tags: [Customers]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -73,6 +79,8 @@
  *   put:
  *     summary: Atualiza um cliente pelo ID
  *     tags: [Customers]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -101,6 +109,8 @@
  *   delete:
  *     summary: Remove um cliente pelo ID
  *     tags: [Customers]
+ *     security:
+ *       - cookieAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -120,37 +130,4 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
- */
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     Customer:
- *       type: object
- *       required:
- *         - id
- *         - name
- *         - email
- *       properties:
- *         id:
- *           type: integer
- *         name:
- *           type: string
- *         email:
- *           type: string
- *
- *     CustomerResponse:
- *       type: object
- *       properties:
- *         message:
- *           type: string
- *         customer:
- *           $ref: '#/components/schemas/Customer'
- *
- *     ErrorResponse:
- *       type: object
- *       properties:
- *         message:
- *           type: string
  */

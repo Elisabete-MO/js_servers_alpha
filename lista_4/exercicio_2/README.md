@@ -18,16 +18,16 @@ Os dados (clientes, produtos e pedidos) são armazenados apenas em memória (arr
 ```
 product-api/
 └── src/
-    ├── app.js
-    ├── middlewares/    |
-    ├── routes/
-    ├── controllers/
-    ├── services/
-    ├── validators/
-    └── public/
-        ├── index.html
-        ├── style.css
-        └── script.js
+|   ├── app.js
+|   ├── middlewares/    |
+|   ├── routes/
+|   ├── controllers/
+|   ├── services/
+|   ├── validators/
+|   └── public/
+|       ├── index.html
+|       ├── style.css
+|       └── script.js
 └── tests/
     ├── __mocks__
     └── routes/

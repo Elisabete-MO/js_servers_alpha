@@ -1,8 +1,20 @@
 import db from '../db/loginDB.js';
 import bcrypt from 'bcrypt';
+import { handleNotFound } from '../utils/handleNotFound.js';
 
 const ITEM = "Usuário";
 const SALT_ROUNDS = 10;
+
+export async function getUser(username) {
+  try {
+    const user = await handleNotFound(await db.get(username), ITEM);
+    return await db.get(user);
+  } catch (error) {
+    if (!error.message) new Error('Erro ao acessar banco de dados');
+    if (!error.status) error.status = 500;
+    throw error;
+  }
+}
 
 export async function getAllUsers() {
   try {
@@ -10,6 +22,7 @@ export async function getAllUsers() {
   } catch (error) {
     if (!error.message) new Error('Erro ao acessar banco de dados');
     if (!error.status) error.status = 500;
+    throw error;
   }
 };
 
@@ -21,15 +34,18 @@ export async function getUserByUsername(username) {
   } catch (error) {
     if (!error.message) new Error('Erro ao acessar banco de dados');
     if (!error.status) error.status = 500;
+    throw error;
   }
 };
 
 export async function createUser(username, password, role) {
   try {
-    await db.get(username);
-    const error = new Error('Nome de usuário já existe');
-    error.status = 400;
-    throw error;
+    const existing = await db.get(username);
+    if (existing) {
+      const err = new Error('Nome de usuário já existe');
+      err.status = 400;
+      throw err;
+    }
   } catch (err) {
     if (err.type !== 'NotFoundError') throw err;
   }
@@ -44,7 +60,8 @@ export async function createUser(username, password, role) {
   } catch (error) {
     if (!error.message) new Error('Erro ao criar usuário');
     if (!error.status) error.status = 500;
-  }
+    throw error;
+   }
 }
 
 export async function updateUser(username, { password, role }) {
@@ -55,11 +72,15 @@ export async function updateUser(username, { password, role }) {
       password: await bcrypt.hash(password, SALT_ROUNDS),
       role: role
     };
+
     await db.put(user);
     return { username: user.username, role: user.role };
+
   } catch (error) {
     if (!error.message) new Error('Erro ao atualizar usuário');
     if (!error.status) error.status = 500;
+
+    throw error;
   }
 }
 

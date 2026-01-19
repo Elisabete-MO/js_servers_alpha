@@ -1,4 +1,4 @@
-import * as userService from '../services/userService.js';
+import { userService } from '../services/index.js';
 
 export function getMe(req, res) {
   return res.json(req.user);
@@ -40,7 +40,6 @@ export async function createUser(req, res) {
   } catch (err) {
     return res.status(err.status || 500).json({ message: err.message });
   }
-
 };
 
 export async function updateUser(req, res) {

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/jwt.js";
-import * as userService from '../services/userService.js';
+import { userService } from '../services/index.js';
 
 export async function autenticate(req, res) {
   const { username, password } = req.body;
